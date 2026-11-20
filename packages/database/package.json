@@ -1,0 +1,17 @@
+{
+  "name": "@havins/database",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "jose": "^6.2.18"
+  },
+  "devDependencies": {}
+}

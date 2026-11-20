@@ -1,0 +1,25 @@
+{
+  "name": "@havins/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy:preview": "wrangler deploy --env preview",
+    "deploy:production": "wrangler deploy --env production",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@havins/auth": "*",
+    "@havins/database": "*",
+    "@havins/email-provider": "*",
+    "@havins/validation": "*",
+    "hono": "^4.13.19",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261120.1",
+    "jose": "^6.2.18",
+    "wrangler": "^4.165.0"
+  }
+}

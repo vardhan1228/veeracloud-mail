@@ -1,0 +1,10 @@
+rules_version = '2';
+// Only the API Worker (service account) reads and writes Firestore. Service accounts bypass
+// these rules; every browser and mobile client is denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+You are a principal software architect, senior full-stack engineer, SaaS product designer, DevOps engineer, and email infrastructure specialist. Build a production-oriented multi-tenant business email hosting SaaS platform for HAVINS TECHNOLOGIES, using the domain havins.in.
+
+PROJECT GOAL
+Build a complete commercial business email platform where external businesses can register, connect their own domains, buy mailboxes, manage employees, and access a branded webmail interface. The platform owner has a super-admin dashboard.
+
+BRANDING
+Brand: HAVINS TECHNOLOGIES
+Domain: havins.in
+Website: havins.in
+App: app.havins.in
+Webmail: mail.havins.in
+Admin: admin.havins.in
+API: api.havins.in
+Tagline: Professional Business Email for Every Business.
+Design a premium SaaS interface with navy, white, subtle blue gradients, glassmorphism, translucent cards, soft shadows, refined typography, elegant icons, smooth transitions, responsive layouts, dark mode and light mode. Avoid excessive blur, poor contrast and decorative clutter. Create a distinctive logo and consistent design system.
+
+ARCHITECTURE
+Host the application frontend and backend primarily on Cloudflare. Use a monorepo with TypeScript, React, Vite or Next.js where Cloudflare compatibility is verified, Tailwind CSS, shadcn/ui, Cloudflare Workers, Hono, Cloudflare D1, Drizzle ORM, Cloudflare R2, Queues, Cron Triggers and Cloudflare Turnstile. Use Cloudflare Access for protected internal admin tools where appropriate. Use Firebase Authentication only if justified; otherwise implement secure authentication using a proven identity library and Workers-compatible session management. Do not use Firebase as a mail server.
+
+EMAIL INFRASTRUCTURE
+Build an email provider adapter interface. Actual mailboxes, SMTP sending, IMAP/JMAP access, inbound mail routing, spam filtering, DKIM, SPF, DMARC, PTR/reverse DNS, quota enforcement and mailbox storage must be handled by a real email hosting provider or separately deployed mail server. Do not pretend Cloudflare Workers can host SMTP/IMAP mailboxes. Start with a mock email provider for local development, then implement a configurable real provider adapter. Keep provider credentials in Cloudflare secrets. Never store plaintext mailbox passwords or email message bodies in D1 unless specifically required and securely encrypted.
+
+MULTI-TENANCY
+Support multiple independent business customers. Entities: tenants, users, memberships, domains, mailboxes, aliases, plans, subscriptions, payments, usage records, support tickets, audit logs, provider accounts and domain verification challenges. Enforce tenant isolation on every backend query and API operation. Use role-based access control: platform_super_admin, tenant_owner, tenant_admin, employee, support_agent. Add audit logs for sensitive operations.
+
+PUBLIC WEBSITE
+Build a premium marketing website with hero section, product features, benefits, pricing, how-it-works, security, FAQ, contact form, login and registration. Use realistic copy and accessible layouts. Include clear CTA buttons and SEO metadata.
+
+CUSTOMER PORTAL
+Create onboarding, business profile, domain registration, domain ownership verification through DNS TXT, DNS configuration instructions, mailbox creation, alias management, employee management, mailbox quotas, subscription details, invoices, payment history, account security and support tickets.
+
+WEBMAIL
+Create a responsive email interface with folders, inbox, sent, drafts, trash, spam, compose, reply, reply all, forward, search, filters, labels, attachments, contact autocomplete, unread status, pagination, message view and responsive mobile layout. Connect only through a real provider adapter or documented API. Never expose provider credentials to the browser. Support loading, error, empty and offline states.
+
+SUPER ADMIN
+Create a secure admin dashboard with total customers, active domains, mailboxes, subscriptions, revenue, usage, customer search, tenant management, plan management, subscription management, provider health, domain verification, audit logs, support ticket management and platform settings. Require strong authentication and MFA for privileged users.
+
+PLANS AND BILLING
+Create configurable free trial, starter, professional and enterprise plans. Support mailbox counts, storage quotas, custom domains, aliases and pricing. Implement Razorpay integration using server-side order creation, signature verification and idempotent webhooks. Do not mark an invoice paid based solely on a frontend redirect. Make prices configurable, show INR and applicable taxes, and never hardcode secrets.
+
+SECURITY
+Implement secure HTTP-only cookies, CSRF protection where applicable, XSS prevention, input validation, rate limiting, account lockout protection, password hashing through a proven library, MFA for administrators, strict CORS, CSP, secure headers, signed webhook verification, encrypted secrets, tenant-level authorization, audit logging and backup strategy. Use Cloudflare Turnstile on public registration and login where appropriate. Apply least-privilege access to D1, R2 and provider APIs. Never commit .env files or credentials.
+
+CLOUDFLARE DEPLOYMENT
+Provide wrangler.jsonc, Worker configuration, D1 schema and migrations, R2 bucket setup, Queue configuration, environment variable definitions, secrets setup, custom domain configuration, DNS guidance, preview deployment, production deployment and rollback procedures. Proposed domains: havins.in, app.havins.in, mail.havins.in, admin.havins.in, api.havins.in. Do not assume DNS is already configured. Explain which records must be DNS-only and which can be proxied. Mail MX and mail server host records must not be proxied through Cloudflare.
+
+REPOSITORY
+Create a maintainable monorepo with apps/website, apps/customer, apps/webmail, apps/admin, apps/api, packages/ui, packages/database, packages/auth, packages/email-provider, packages/validation and infrastructure/cloudflare. Include tests, linting, formatting, type checking, migrations, seed scripts, README, architecture documentation and deployment documentation.
+
+IMPLEMENTATION RULES
+1. Inspect the environment and existing files before modifying anything.
+2. Write an architecture document and implementation plan first.
+3. Build real working functionality, not just static mockup screens.
+4. Use strict TypeScript and reusable components.
+5. Implement backend validation and authorization for every sensitive operation.
+6. Include loading, success, failure, empty and responsive states.
+7. Add unit tests and integration tests for authentication, tenant isolation, mailbox provisioning, payments and webhooks.
+8. Never fake successful email delivery, domain verification, payment or mailbox creation.
+9. If an external provider is not configured, clearly show a setup-required state and provide a mock adapter only for development.
+10. Do not invent API keys, DNS records, SMTP credentials or production configuration.
+11. Make each feature independently testable.
+12. Build incrementally, run tests and fix errors before moving forward.
+13. Keep deployment costs within the target of ₹2,000/month during the initial development stage where technically feasible. Clearly disclose free-tier limitations and usage-based charges.
+14. Before production launch, document security review, privacy, backup, abuse prevention, email deliverability and applicable legal/compliance requirements.
+
+DELIVERABLES
+A. Full source code.
+B. Attractive responsive branded frontend.
+C. Functional backend APIs.
+D. Database schema and migrations.
+E. Authentication and multi-tenant authorization.
+
+F. Customer and super-admin dashboards.
+G. Email provider adapter and webmail interface.
+H. Payment integration scaffolding and webhook verification.
+I. Cloudflare deployment configuration.
+J. Local development instructions.
+K. GoDaddy and Cloudflare DNS setup instructions.
+L. Production launch checklist.
+M. Tests and documentation.
+
+WORKING METHOD
+Start by inspecting the repository. Then create docs/ARCHITECTURE.md, docs/IMPLEMENTATION_PLAN.md and docs/SECURITY.md. Next implement the foundation, database, authentication, public website, customer portal, admin portal, provider adapter and deployment. Work in small milestones. Do not stop after generating a plan: proceed to implementing the first milestone and report exact files created, tests run, unresolved dependencies and next steps. Ask only for genuinely necessary external credentials or decisions, and request them through secure configuration rather than chat.
+
+The final product must look and feel like a premium commercial SaaS platform, not a generic template. The UI should be polished, accessible, fast, mobile-friendly and consistent throughout.
